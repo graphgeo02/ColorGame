@@ -20,8 +20,7 @@ p {
 }
 .container {
   text-align: center;
-  max-width: 400px;
-  /* background: #fff; */
+  max-width: 300px;
   background-color: #393E46;
   padding: 20px;
   border-radius: 10px;
@@ -68,15 +67,15 @@ p {
 }
 
 .new-game-button {
-  margin-top: 20px;
+  margin-bottom: 2rem;
   padding: 10px 20px;
   background-color: #28a745;
   color: white;
   border: none;
   border-radius: 5px;
- 
   cursor: pointer;
   width: 50%;
+
 }
 
 .new-game-button:hover {
