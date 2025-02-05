@@ -20,7 +20,7 @@ p {
 }
 .container {
   text-align: center;
-  width: 20rem;
+  max-width: 290px;
   background-color: #393E46;
   padding: 20px;
   border-radius: 10px;
