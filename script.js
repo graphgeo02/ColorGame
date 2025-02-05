@@ -29,54 +29,59 @@ function makeBrighter(color) {
   return `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
 }
 
-// Function to start a new game
-function newGame() {
-  gameStatus.classList.remove('show');
+
+
+function newGame(resetScore = false) {
+  if (resetScore) {
+    score = 0; // Reset score only when the new game button is clicked
+    scoreDisplay.textContent = score;
+  }
+
+  gameStatus.textContent = 'New game started! 🎯';
+  gameStatus.style.color = 'green';
+  gameStatus.classList.add('show');
+  
+  setTimeout(() => gameStatus.classList.remove('show'), 1500);
+
   targetColor = getRandomColor();
   colorBox.style.backgroundColor = makeBrighter(targetColor);
   correctOption = Math.floor(Math.random() * colorOptions.length);
+
   colorOptions.forEach((option, index) => {
-    if (index === correctOption) {
-      option.style.backgroundColor = targetColor; // Set the correct option as the target color
-    } else {
-      option.style.backgroundColor = getRandomColor(); // Set the other options as random colors
-    }
+    option.style.backgroundColor = index === correctOption ? targetColor : getRandomColor();
     option.onclick = checkGuess;
   });
-  setTimeout(() => {
-    gameStatus.textContent = 'New game started!';
-    gameStatus.classList.add('show');
-  }, 100);
 }
 
 // Function to check the player's guess
 function checkGuess(event) {
   const playerGuess = event.target;
   if (playerGuess === colorOptions[correctOption]) {
-    gameStatus.innerHTML = 'Correct! &#128522;';
-    gameStatus.style.color = 'green'
+    gameStatus.textContent = 'Correct! 😊';
+    gameStatus.style.color = 'green';
     gameStatus.classList.add('show');
-    setTimeout(() => {
-      gameStatus.classList.remove('show');
-      newGame(); // Start a new game
-    }, 3000);
     score++;
     scoreDisplay.textContent = score;
-  } else {
-    gameStatus.innerHTML = 'Wrong! &#128293;'
-    gameStatus.style.color = 'red';
-    gameStatus.classList.add('show');
+    
     setTimeout(() => {
       gameStatus.classList.remove('show');
-    }, 3000);
+      newGame(); // Automatically start a new game
+    }, 2000);
+  } else {
+    gameStatus.textContent = 'Wrong! 🔥';
+    gameStatus.style.color = 'red';
+    gameStatus.classList.add('show');
+
+    setTimeout(() => gameStatus.classList.remove('show'), 1500);
   }
 }
 
 // Add event listener to the new game button
-newGameButton.addEventListener('click', newGame);
+newGameButton.addEventListener('click', () => newGame(true));
+
 
 // Start a new game
-newGame();
+// newGame();
 
 
 button.addEventListener('click', () => {
